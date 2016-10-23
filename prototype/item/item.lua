@@ -8,13 +8,13 @@ for i1, material in ipairs(materials) do
 					name = size.."-"..material.."-"..symbol,
 					icon = "__textplates__/graphics/icon/"..size.."/"..material.."_"..symbol..".png",
 					flags = {"goes-to-quickbar"},
-					subgroup = "text-plates-symbols",
+					subgroup = "terrain",
 					order = "e[tileplates]-"..string.format( "%03d", count ),
 					stack_size = 50,
 					place_result = size.."-"..material.."-"..symbol,
 				}
-			if(symbol == "blank") then
-				item.subgroup = "text-plates-blanks"
+			if(symbol ~= "blank") then
+				item.subgroup = "text-plates-symbols"
 			end
 			data:extend({ item })
 		end
