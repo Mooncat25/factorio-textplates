@@ -81,7 +81,7 @@ for i1, material in ipairs(materials) do
 				circuit_wire_max_distance = 0
 			}
 			if(symbol == "blank") then -- add constant slot
-				item_slot_count = 1
+				entity.item_slot_count = 1
 			end
 			if(size == "large") then
 				entity.corpse = "medium-remnants"
