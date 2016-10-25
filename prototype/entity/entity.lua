@@ -37,7 +37,7 @@ for i1, material in ipairs(materials) do
 				render_layer = "floor",
 				max_health = 25,
 				collision_box = {{-0.45, -0.45}, {0.45, 0.45}},
-				collision_mask = { "floor-layer" },
+				collision_mask = { "floor-layer" }, -- this does not work ... yet
 				selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
 				corpse = "small-remnants",
 				item_slot_count = 0,
