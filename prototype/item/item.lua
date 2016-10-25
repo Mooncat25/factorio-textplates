@@ -14,7 +14,7 @@ for i1, material in ipairs(materials) do
 					place_result = size.."-"..material.."-"..symbol,
 				}
 			if(symbol ~= "blank") then
-				item.subgroup = "text-plates-symbols"
+				item.flags = {"goes-to-quickbar","hidden"}
 			end
 			data:extend({ item })
 		end
