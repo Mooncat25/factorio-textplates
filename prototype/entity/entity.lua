@@ -78,7 +78,9 @@ for i1, material in ipairs(materials) do
 				  text_connections(),
 				  text_connections()
 				},
-				circuit_wire_max_distance = 0
+				circuit_wire_max_distance = 0,
+				localised_name = { "entity-name.text-plate", { size }, { material }, { symbol } }
+
 			}
 			if(symbol == "blank") then -- add constant slot
 				entity.item_slot_count = 1

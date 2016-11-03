@@ -12,6 +12,7 @@ for i1, material in ipairs(materials) do
 					order = "e[tileplates]-"..string.format( "%03d", count ),
 					stack_size = 50,
 					place_result = size.."-"..material.."-"..symbol,
+					localised_name = { "item-name.text-plate", { size }, { material }, { symbol } }
 				}
 			if(symbol ~= "blank") then
 				item.flags = {"goes-to-quickbar","hidden"}
