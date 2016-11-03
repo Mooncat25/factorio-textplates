@@ -1,4 +1,6 @@
- require("plate-types")
+require("plate-types")
+
+local default_symbol = "square"
 
 function on_player_cursor_stack_changed(event)
 	player=game.players[event.player_index]
@@ -38,11 +40,13 @@ function show_gui(player, item_name)
 		local plates_table = plate_frame.add{type ="table", name = "plates_table", colspan = 6, style = "plates-table"}
 		
 		for i3, symbol in ipairs(symbols) do
-			local plate_option = item_prefix.."-"..symbol
-			if(symbol == "blank") then
-				plates_table.add{type = "sprite-button", name = plate_option, sprite="item/"..plate_option, style="plates-button-active"}
-			else
-				plates_table.add{type = "sprite-button", name = plate_option, sprite="item/"..plate_option, style="plates-button"}
+			if not(symbol == "blank") then
+				local plate_option = item_prefix.."-"..symbol
+				if(symbol == default_symbol) then
+					plates_table.add{type = "sprite-button", name = plate_option, sprite="item/"..plate_option, style="plates-button-active"}
+				else
+					plates_table.add{type = "sprite-button", name = plate_option, sprite="item/"..plate_option, style="plates-button"}
+				end
 			end
 		end
 		
@@ -50,7 +54,7 @@ function show_gui(player, item_name)
 		local plates_input = plate_frame.add{type ="textfield", name = "plates_input"}
 		
 		prep_player_plate_options(player.index)
-		global.plates_players[player.index][item_prefix] = item_prefix.."-blank"
+		global.plates_players[player.index][item_prefix] = item_prefix.."-"..default_symbol
 		
 	end
 end
@@ -117,7 +121,7 @@ function prep_next_symbol(player_index)
 						player.gui.left[size.."-"..material].plates_table[buttonname].style = "plates-button"
 					end
 					player.gui.left[size.."-"..material].plates_table[size.."-"..material.."-blank"].style = "plates-button-active"
-					global.plates_players[player_index][size.."-"..material] = size.."-"..material.."-blank"
+					global.plates_players[player_index][size.."-"..material] = size.."-"..material.."-"..default_symbol
 				end
 			end
 		end
@@ -144,7 +148,7 @@ function on_built_entity (event)
 					for i2, size in ipairs(sizes) do
 						if entity.ghost_name == size.."-"..material.."-blank" then
 							prep_player_plate_options(player_index)
-							local replace_name = entity.ghost_name
+							local replace_name = size.."-"..material.."-"..default_symbol -- default
 							-- loaded value
 							if global.plates_players[player_index][size.."-"..material] then 
 								replace_name = global.plates_players[player_index][size.."-"..material]
@@ -188,7 +192,7 @@ function on_built_entity (event)
 				for i2, size in ipairs(sizes) do
 					if entity.name == size.."-"..material.."-blank" then
 						prep_player_plate_options(player_index)
-						local replace_name = entity.name
+						local replace_name = size.."-"..material.."-"..default_symbol -- default
 						-- loaded value
 						if global.plates_players[player_index][size.."-"..material] then 
 							replace_name = global.plates_players[player_index][size.."-"..material]
@@ -257,7 +261,7 @@ function on_entity_died (event)
 end
 
 function item_suffix_from_char(character)
-	return symbol_by_char[string.lower( character )] or "blank"
+	return symbol_by_char[string.lower( character )] or default_symbol
 end
 	
 script.on_event(defines.events.on_gui_click, on_gui_click)
